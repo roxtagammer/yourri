@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url><loc>https://your-domain.example/index.html</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/products.html</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/about.html</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/contact.html</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p001</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p002</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p003</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p004</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p005</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p006</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p007</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p008</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p009</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p010</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p011</loc><lastmod>2025-12-08</lastmod></url>
+  <url><loc>https://your-domain.example/product.html?id=p012</loc><lastmod>2025-12-08</lastmod></url>
+</urlset>

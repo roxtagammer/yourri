@@ -1,0 +1,52 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>اتصل بنا — Yourri Info Shop</title>
+    <meta name='description' content='تواصل معنا لأي استفسار أو شراكات.'>
+    <link rel='canonical' href='contact.html'>
+    <meta property='og:title' content='اتصل بنا — Yourri Info Shop'>
+    <meta property='og:description' content='تواصل معنا لأي استفسار أو شراكات.'>
+    <meta property='og:type' content='website'>
+    <meta property='og:url' content='contact.html'>
+    <meta property='og:image' content='assets/logo.svg'>
+    <meta name='twitter:card' content='summary_large_image'>
+    <link rel='manifest' href='manifest.json'>
+    <link rel='icon' href='assets/logo.svg'>
+    <link rel='stylesheet' href='styles.css'>
+    
+</head>
+<body>
+<header>
+  <div class="container navbar">
+    <a href="index.html"><img src="assets/logo.svg" alt="Yourri Info Shop" class="logo"></a>
+    <nav class="categories">
+      <a href="products.html?category=إلكترونيات">إلكترونيات</a>
+      <a href="products.html?category=أزياء">أزياء</a>
+      <a href="products.html?category=منزل ومطبخ">منزل ومطبخ</a>
+      <a href="products.html?category=جمال وصحة">جمال وصحة</a>
+      <a href="products.html?category=رياضة ولياقة">رياضة ولياقة</a>
+    </nav>
+    <div class="search"><input id="search-input" placeholder="ابحث عن منتج"><button id="search-btn">بحث</button></div>
+  </div>
+</header>
+<main class="container">
+  <h1>اتصل بنا</h1>
+  <form class="hero" onsubmit="event.preventDefault(); alert('تم إرسال الرسالة');">
+    <div style="flex:1">
+      <label>الاسم<br><input type="text" required style="width:100%; padding:10px; border-radius:6px;"></label><br><br>
+      <label>البريد الإلكتروني<br><input type="email" required style="width:100%; padding:10px; border-radius:6px;"></label><br><br>
+      <label>الرسالة<br><textarea required style="width:100%; padding:10px; border-radius:6px; height:120px;"></textarea></label><br><br>
+      <button class="button" type="submit">إرسال</button>
+    </div>
+  </form>
+</main>
+<footer>
+  <div class="container">© 2025 Yourri Info Shop</div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

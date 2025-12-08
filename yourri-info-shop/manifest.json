@@ -1,0 +1,15 @@
+{
+  "name": "Yourri Info Shop",
+  "short_name": "Yourri Shop",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff3d00",
+  "icons": [
+    {
+      "src": "assets/logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
