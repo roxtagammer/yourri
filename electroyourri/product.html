@@ -1,0 +1,51 @@
+
+<!doctype html>
+<html lang='ar' dir='rtl'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Electro Yourri — تفاصيل المنتج</title>
+  <meta name='description' content='Electro Yourri — منصة رسمية لعرض الإلكترونيات بروابط إحالة والعملة MAD.'>
+  <link rel='icon' href='assets/logo.svg'>
+  <link rel='stylesheet' href='styles.css'>
+</head>
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="index.html"><img src="assets/logo.svg" alt="Electro Yourri" class="logo"></a>
+    <nav class="categories">
+      <a href="products.html?category=هواتف">هواتف</a>
+      <a href="products.html?category=حواسيب">حواسيب</a>
+      <a href="products.html?category=لوحات أم">لوحات أم</a>
+      <a href="products.html?category=بطاقات رسوميات">بطاقات رسوميات</a>
+      <a href="products.html?category=تخزين SSD/HDD">تخزين SSD/HDD</a>
+      <a href="products.html?category=رام">رام</a>
+      <a href="products.html?category=راوتر وشبكات">راوتر وشبكات</a>
+      <a href="products.html?category=شاشات">شاشات</a>
+      <a href="products.html?category=ملحقات">ملحقات</a>
+      <a href="products.html?category=تصوير">تصوير</a>
+    </nav>
+    <div class="search">
+      <input id="search-input" placeholder="ابحث عن منتج إلكتروني">
+      <button id="search-btn">بحث</button>
+    </div>
+    <div class="selector">
+      <label class="muted">العملة</label>
+      <select id="currency">
+        <option>MAD</option><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main class='container'>
+<div id='product'></div>
+</main>
+<footer>
+  <div class='container'>© 2025 Electro Yourri — موقع مستقل بروابط شراء على المصادر الأصلية.</div>
+</footer>
+<script src='config.js'></script>
+<script src='app.js'></script>
+</body>
+</html>

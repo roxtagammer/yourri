@@ -1,0 +1,11 @@
+
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 64'>
+  <defs>
+    <linearGradient id='g' x1='0' y='0' x2='1' y2='0'>
+      <stop offset='0%' stop-color='#0ea5e9'/>
+      <stop offset='100%' stop-color='#6366f1'/>
+    </linearGradient>
+  </defs>
+  <rect rx='12' width='360' height='64' fill='#0b1020'/>
+  <text x='20' y='40' font-family='Segoe UI, Roboto, system-ui, -apple-system' font-size='26' font-weight='700' fill='#e5e7eb'>Electro Yourri</text>
+</svg>
