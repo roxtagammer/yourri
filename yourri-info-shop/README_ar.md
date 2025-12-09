@@ -1,16 +1,6 @@
 
-# Yourri Info Shop (v2)
-
-واجهة عربية (RTL) مع دعم بيانات كبيرة (10,000+ منتج) عبر التمرير اللانهائي وتصفية المصدر والسعر.
-
-## الملفات المهمة
-- `data/products_large.json`: بيانات صناعية (Placeholder) لاختبار الأداء. استبدلها ببيانات حقيقية من الـ APIs.
-- `feeds/README_integrations.md`: شرح التكامل مع منصات الأفلييت الرسمية.
-- `feeds/product_feed_template.csv`: قالب CSV لإدخال منتجاتك.
-
-## النشر
-- Netlify/Vercel كما هو موضح سابقاً.
-
-## ملاحظات قانونية
-- اعمل مع برامج الأفلييت واحترم حقوق الصور والنصوص.
-- الأسعار تتغير؛ نفّذ مزامنة دورية.
+# Yourri Info Shop (v3)
+- 10,000+ منتج (بيانات صناعية للاختبار) مع تمربر لانهائي وتصفية المصدر/السعر.
+- صفحات Auth: `login.html`, `signup.html`, `account.html` + Firebase CDN.
+- حدّث `window.__FIREBASE_CONFIG` ثم انشر على Netlify/Vercel.
+- إذا ظهر الموقع فارغ: شغّل سيرفر محلي (`python -m http.server`) وتأكد من `data/products_large.json`.

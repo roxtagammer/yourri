@@ -1,1 +1,79 @@
-<!doctype html><html lang='ar' dir='rtl'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>تسجيل الدخول</title><link rel='stylesheet' href='styles.css'></head><body><header><div class='container navbar'><a href='index.html'><img src='assets/logo.svg' class='logo'></a><div class='search'><input id='search-input'><button id='search-btn'>بحث</button></div><div style='display:flex;gap:8px;'><a id='nav-login' class='button secondary' href='login.html'>تسجيل الدخول</a><a id='nav-account' class='button secondary' href='account.html' style='display:none'>حسابي</a><button id='nav-logout' class='button secondary' style='display:none'>خروج</button></div></div></header><main class='container'><h1>تسجيل الدخول</h1><p>أدخل بريدك وكلمة المرور (سيتم تفعيل Firebase لاحقاً).</p></main><footer><div class='container'>© 2025 Yourri Info Shop</div></footer><script src='https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js'></script><script src='https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js'></script><script src='auth.js'></script><script src='app.js'></script></body></html>
+<!doctype html>
+<html lang='ar' dir='rtl'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>تسجيل الدخول — Yourri Info Shop</title>
+    <link rel='stylesheet' href='styles.css'>
+    <link rel='icon' href='assets/logo.svg'>
+</head>
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="index.html"><img src="assets/logo.svg" alt="Yourri Info Shop" class="logo"></a>
+    <nav class="categories">
+      <a href="products.html?category=إلكترونيات">إلكترونيات</a>
+      <a href="products.html?category=أزياء">أزياء</a>
+      <a href="products.html?category=منزل ومطبخ">منزل ومطبخ</a>
+      <a href="products.html?category=جمال وصحة">جمال وصحة</a>
+      <a href="products.html?category=رياضة ولياقة">رياضة ولياقة</a>
+    </nav>
+    <div class="search"><input id="search-input" placeholder="ابحث عن منتج"><button id="search-btn">بحث</button></div>
+    <div style="display:flex;gap:8px;">
+      <a id="nav-login" class="button secondary" href="login.html">تسجيل الدخول</a>
+      <a id="nav-account" class="button secondary" href="account.html" style="display:none">حسابي</a>
+      <button id="nav-logout" class="button secondary" style="display:none">خروج</button>
+    </div>
+  </div>
+</header>
+
+<main class='container'>
+
+  <div class="breadcrumbs"><a href="index.html">الرئيسية</a> / تسجيل الدخول</div>
+  <div class="hero" style="flex-direction:column;align-items:stretch;">
+    <h1>تسجيل الدخول</h1>
+    <label>البريد الإلكتروني<br><input id="login-email" type="email" required style="width:100%; padding:10px; border-radius:6px;"></label><br>
+    <label>كلمة المرور<br><input id="login-pass" type="password" required style="width:100%; padding:10px; border-radius:6px;"></label><br>
+    <div style="display:flex; gap:8px;">
+      <button class="button" id="btn-login">دخول</button>
+      <a class="button secondary" href="signup.html">إنشاء حساب</a>
+    </div>
+    <div class="muted" id="login-msg"></div>
+  </div>
+  <script>
+    document.querySelector('#btn-login').addEventListener('click', async ()=>{
+      const email = document.querySelector('#login-email').value.trim();
+      const pass = document.querySelector('#login-pass').value.trim();
+      const msg = document.querySelector('#login-msg');
+      msg.textContent = 'جاري المعالجة...';
+      try {
+        const auth = firebase.auth();
+        await auth.signInWithEmailAndPassword(email, pass);
+        const usp = new URLSearchParams(location.search);
+        const redirect = usp.get('redirect') || 'account.html';
+        location.href = redirect;
+      } catch(e){ msg.textContent = 'فشل تسجيل الدخول: ' + (e.message||e); }
+    });
+  </script>
+
+</main>
+<footer>
+  <div class='container'>© 2025 Yourri Info Shop</div>
+</footer>
+<script src='app.js'></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+  window.__FIREBASE_CONFIG = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    appId: "YOUR_APP_ID",
+  };
+  if (window.firebase) { firebase.initializeApp(window.__FIREBASE_CONFIG); }
+</script>
+
+</body>
+</html>

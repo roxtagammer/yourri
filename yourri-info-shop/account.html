@@ -1,1 +1,72 @@
-<!doctype html><html lang='ar' dir='rtl'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>حسابي</title><link rel='stylesheet' href='styles.css'></head><body><header><div class='container navbar'><a href='index.html'><img src='assets/logo.svg' class='logo'></a><div class='search'><input id='search-input'><button id='search-btn'>بحث</button></div><div style='display:flex;gap:8px;'><a id='nav-login' class='button secondary' href='login.html'>تسجيل الدخول</a><a id='nav-account' class='button secondary' href='account.html' style='display:none'>حسابي</a><button id='nav-logout' class='button secondary' style='display:none'>خروج</button></div></div></header><main class='container'><h1>حسابي</h1><p>سيتم عرض معلومات المستخدم بعد تسجيل الدخول.</p></main><footer><div class='container'>© 2025 Yourri Info Shop</div></footer><script src='https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js'></script><script src='https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js'></script><script src='auth.js'></script><script src='app.js'></script></body></html>
+<!doctype html>
+<html lang='ar' dir='rtl'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>حسابي — Yourri Info Shop</title>
+    <link rel='stylesheet' href='styles.css'>
+    <link rel='icon' href='assets/logo.svg'>
+</head>
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="index.html"><img src="assets/logo.svg" alt="Yourri Info Shop" class="logo"></a>
+    <nav class="categories">
+      <a href="products.html?category=إلكترونيات">إلكترونيات</a>
+      <a href="products.html?category=أزياء">أزياء</a>
+      <a href="products.html?category=منزل ومطبخ">منزل ومطبخ</a>
+      <a href="products.html?category=جمال وصحة">جمال وصحة</a>
+      <a href="products.html?category=رياضة ولياقة">رياضة ولياقة</a>
+    </nav>
+    <div class="search"><input id="search-input" placeholder="ابحث عن منتج"><button id="search-btn">بحث</button></div>
+    <div style="display:flex;gap:8px;">
+      <a id="nav-login" class="button secondary" href="login.html">تسجيل الدخول</a>
+      <a id="nav-account" class="button secondary" href="account.html" style="display:none">حسابي</a>
+      <button id="nav-logout" class="button secondary" style="display:none">خروج</button>
+    </div>
+  </div>
+</header>
+
+<main class='container'>
+
+  <div class="breadcrumbs"><a href="index.html">الرئيسية</a> / حسابي</div>
+  <div class="hero" style="flex-direction:column;align-items:stretch;">
+    <h1>حسابي</h1>
+    <p>مرحباً <strong id="user-email">المستخدم</strong></p>
+    <ul>
+      <li><a href="products.html">متابعة التسوّق</a></li>
+      <li><a href="#" id="go-wishlist">المفضلة</a></li>
+      <li><button class="button secondary" id="btn-logout">تسجيل الخروج</button></li>
+    </ul>
+  </div>
+  <script>
+    const auth = firebase.auth();
+    auth.onAuthStateChanged(user=>{
+      if (!user){ location.href = 'login.html?redirect=' + encodeURIComponent(location.pathname + location.search); }
+      else { const el = document.querySelector('#user-email'); if (el) el.textContent = user.email || 'مستخدم'; }
+    });
+    document.querySelector('#btn-logout').addEventListener('click', async ()=>{ await auth.signOut(); location.href='index.html'; });
+    document.querySelector('#go-wishlist').addEventListener('click', ()=>{ alert('ميزة المفضلة محلياً فقط الآن. سنربطها بالحساب لاحقاً.'); });
+  </script>
+
+</main>
+<footer>
+  <div class='container'>© 2025 Yourri Info Shop</div>
+</footer>
+<script src='app.js'></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+  window.__FIREBASE_CONFIG = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    appId: "YOUR_APP_ID",
+  };
+  if (window.firebase) { firebase.initializeApp(window.__FIREBASE_CONFIG); }
+</script>
+
+</body>
+</html>

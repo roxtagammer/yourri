@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang='ar' dir='rtl'>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -15,9 +15,9 @@
     <link rel='manifest' href='manifest.json'>
     <link rel='icon' href='assets/logo.svg'>
     <link rel='stylesheet' href='styles.css'>
-
 </head>
 <body>
+
 <header>
   <div class="container navbar">
     <a href="index.html"><img src="assets/logo.svg" alt="Yourri Info Shop" class="logo"></a>
@@ -29,15 +29,21 @@
       <a href="products.html?category=رياضة ولياقة">رياضة ولياقة</a>
     </nav>
     <div class="search"><input id="search-input" placeholder="ابحث عن منتج"><button id="search-btn">بحث</button></div>
+    <div style="display:flex;gap:8px;">
+      <a id="nav-login" class="button secondary" href="login.html">تسجيل الدخول</a>
+      <a id="nav-account" class="button secondary" href="account.html" style="display:none">حسابي</a>
+      <button id="nav-logout" class="button secondary" style="display:none">خروج</button>
+    </div>
   </div>
 </header>
-<main class="container">
+
+<main class='container'>
   <h1>من نحن</h1>
-  <p>Yourri Info Shop موقع مستقل يعرض منتجات متنوعة وروابط شراء نحو المواقع الأصلية (مثال: AliExpress، Amazon، eBay، Shopify). لسنا مرتبطين رسمياً بأي من هذه المنصات.</p>
+  <p>Yourri Info Shop موقع مستقل يعرض منتجات متنوعة وروابط شراء نحو المواقع الأصلية (AliExpress، Amazon، eBay، Shopify). لسنا مرتبطين رسمياً بأي من هذه المنصات.</p>
 </main>
 <footer>
-  <div class="container">© 2025 Yourri Info Shop</div>
+  <div class='container'>© 2025 Yourri Info Shop</div>
 </footer>
-<script src="app.js"></script>
+<script src='app.js'></script>
 </body>
 </html>

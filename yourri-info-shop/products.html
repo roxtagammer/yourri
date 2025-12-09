@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang='ar' dir='rtl'>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>تسوق المنتجات — Yourri Info Shop</title>
-    <meta name='description' content='تصفح أصناف متعددة مع روابط شراء على الموقع الأصلي.'>
+    <meta name='description' content='تصفية المصدر والسعر + تمربر لانهائي.'>
     <link rel='canonical' href='products.html'>
     <meta property='og:title' content='تسوق المنتجات — Yourri Info Shop'>
-    <meta property='og:description' content='تصفح أصناف متعددة مع روابط شراء على الموقع الأصلي.'>
+    <meta property='og:description' content='تصفية المصدر والسعر + تمربر لانهائي.'>
     <meta property='og:type' content='website'>
     <meta property='og:url' content='products.html'>
     <meta property='og:image' content='assets/logo.svg'>
@@ -15,9 +15,9 @@
     <link rel='manifest' href='manifest.json'>
     <link rel='icon' href='assets/logo.svg'>
     <link rel='stylesheet' href='styles.css'>
-
 </head>
 <body>
+
 <header>
   <div class="container navbar">
     <a href="index.html"><img src="assets/logo.svg" alt="Yourri Info Shop" class="logo"></a>
@@ -29,39 +29,45 @@
       <a href="products.html?category=رياضة ولياقة">رياضة ولياقة</a>
     </nav>
     <div class="search"><input id="search-input" placeholder="ابحث عن منتج"><button id="search-btn">بحث</button></div>
+    <div style="display:flex;gap:8px;">
+      <a id="nav-login" class="button secondary" href="login.html">تسجيل الدخول</a>
+      <a id="nav-account" class="button secondary" href="account.html" style="display:none">حسابي</a>
+      <button id="nav-logout" class="button secondary" style="display:none">خروج</button>
+    </div>
   </div>
 </header>
-<main class="container">
-  <div class="breadcrumbs"><a href="index.html">الرئيسية</a> / المنتجات</div>
-  <div class="hero">
-    <div style="display:flex; gap:8px; align-items:flex-end; width:100%;">
-      <div style="flex:1">
+
+<main class='container'>
+  <div class='breadcrumbs'><a href='index.html'>الرئيسية</a> / المنتجات</div>
+  <div class='hero'>
+    <div style='display:flex; gap:8px; align-items:flex-end; width:100%;'>
+      <div style='flex:1'>
         <label>المصدر<br>
-          <select id="filter-source" style="width:100%; padding:10px; border-radius:6px;">
-            <option value="">الكل</option>
-            <option value="AliExpress">AliExpress</option>
-            <option value="Amazon">Amazon</option>
-            <option value="eBay">eBay</option>
-            <option value="Shopify">Shopify</option>
+          <select id='filter-source' style='width:100%; padding:10px; border-radius:6px;'>
+            <option value=''>الكل</option>
+            <option value='AliExpress'>AliExpress</option>
+            <option value='Amazon'>Amazon</option>
+            <option value='eBay'>eBay</option>
+            <option value='Shopify'>Shopify</option>
           </select>
         </label>
       </div>
       <div>
-        <label>السعر الأدنى<br><input id="filter-min" type="number" min="0" step="1" style="padding:10px; border-radius:6px; width:140px;"></label>
+        <label>السعر الأدنى<br><input id='filter-min' type='number' min='0' step='1' style='padding:10px; border-radius:6px; width:140px;'></label>
       </div>
       <div>
-        <label>السعر الأقصى<br><input id="filter-max" type="number" min="0" step="1" style="padding:10px; border-radius:6px; width:140px;"></label>
+        <label>السعر الأقصى<br><input id='filter-max' type='number' min='0' step='1' style='padding:10px; border-radius:6px; width:140px;'></label>
       </div>
-      <button class="button" id="apply-filters">تطبيق</button>
+      <button class='button' id='apply-filters'>تطبيق</button>
     </div>
   </div>
   <h1>المنتجات</h1>
-  <div id="grid" class="grid"></div>
+  <div id='grid' class='grid'></div>
 </main>
 <footer>
-  <div class="container">© 2025 Yourri Info Shop</div>
+  <div class='container'>© 2025 Yourri Info Shop</div>
 </footer>
-<script src="app.js"></script>
+<script src='app.js'></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const fs = document.querySelector('#filter-source');
