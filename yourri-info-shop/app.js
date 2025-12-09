@@ -1,120 +1,14 @@
 
-// وظائف عامة
-async function loadProducts() {
-  const res = await fetch('data/products.json');
-  return await res.json();
-}
+const PAGE_SIZE = 40; let __products_cache=null, __render_offset=0, __current_filtered=[];
+async function loadProductsLarge(){ if(__products_cache) return __products_cache; const res = await fetch('data/products_large.json'); const data = await res.json(); __products_cache = data; return data; }
+function formatPrice(p,cur='USD'){ return new Intl.NumberFormat('ar-MA',{style:'currency',currency:cur}).format(p); }
+function createProductCard(p){ const div=document.createElement('div'); div.className='card'; div.innerHTML=`<img src="${p.image}" alt="${p.name}"><div class="info"><div class="title">${p.name}</div><div class="muted">${p.category} • المصدر: ${p.source} • ⭐ ${p.rating} (${p.reviewsCount})</div><div class="price">${formatPrice(p.price,p.currency)}</div></div><div class="actions"><a class="button" href="product.html?id=${p.id}">تفاصيل</a><a class="button secondary" href="${p.originUrl}" target="_blank" rel="noopener">الموقع الأصلي</a></div>`; return div; }
+function applyFilters(products){ const usp=new URLSearchParams(location.search); const q=usp.get('q'); const cat=usp.get('category'); const src=usp.get('source'); const min=parseFloat(usp.get('min')); const max=parseFloat(usp.get('max')); let filtered=products; if(cat) filtered=filtered.filter(p=>p.category===cat); if(src) filtered=filtered.filter(p=>p.source===src); if(!Number.isNaN(min)) filtered=filtered.filter(p=>p.price>=min); if(!Number.isNaN(max)) filtered=filtered.filter(p=>p.price<=max); if(q) filtered=filtered.filter(p=>p.name.includes(q)); return filtered; }
+async function renderGrid(sel){ const el=document.querySelector(sel); if(!el) return; const products=await loadProductsLarge(); __current_filtered=applyFilters(products); el.innerHTML=''; __render_offset=0; renderMore(el); initInfiniteScroll(el); if(__current_filtered.length===0){ el.innerHTML='<div class="muted">لا توجد نتائج مطابقة.</div>'; } }
+function renderMore(el){ const slice=__current_filtered.slice(__render_offset,__render_offset+PAGE_SIZE); slice.forEach(p=>el.appendChild(createProductCard(p))); __render_offset+=slice.length; }
+function initInfiniteScroll(el){ let ticking=false; window.addEventListener('scroll',()=>{ if(ticking) return; ticking=true; requestAnimationFrame(()=>{ const nearBottom=(window.innerHeight+window.scrollY)>(document.body.offsetHeight-300); if(nearBottom && __render_offset<__current_filtered.length){ renderMore(el); } ticking=false; }); }); }
+async function renderProductPage(){ const el=document.querySelector('#product'); if(!el) return; const id=new URLSearchParams(location.search).get('id'); const products=await loadProductsLarge(); const p=products.find(x=>x.id===id); if(!p){ el.innerHTML='<div class="muted">المنتج غير موجود.</div>'; return; } el.innerHTML=`<div class="breadcrumbs"><a href="index.html">الرئيسية</a> / <a href="products.html?category=${encodeURIComponent(p.category)}">${p.category}</a> / ${p.name}</div><div class="hero"><img src="${p.image}" alt="${p.name}" style="width:50%; border-radius:10px;"><div style="flex:1"><div class="title">${p.name}</div><p class="muted">⭐ ${p.rating} (${p.reviewsCount} مراجعة) • المصدر: ${p.source}</p><p class="price">${formatPrice(p.price,p.currency)}</p><p>${p.description}</p><div style="display:flex; gap:8px;"><a class="button" href="${p.originUrl}" target="_blank" rel="noopener">زر الموقع الأصلي</a><button class="button secondary" onclick="addToWishlist('${p.id}')">إضافة للمفضلة</button></div></div></div>`; const ld={'@context':'https://schema.org/','@type':'Product',name:p.name,image:p.image,description:p.description,category:p.category,offers:{'@type':'Offer',price:p.price,priceCurrency:p.currency,availability:'https://schema.org/InStock'},aggregateRating:{'@type':'AggregateRating',ratingValue:p.rating,reviewCount:p.reviewsCount}}; const s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld); document.head.appendChild(s); }
+function addToWishlist(id){ const key='wishlist'; const arr=JSON.parse(localStorage.getItem(key)||'[]'); if(!arr.includes(id)) arr.push(id); localStorage.setItem(key,JSON.stringify(arr)); alert('تمت الإضافة إلى المفضلة'); }
+function initSearch(){ const input=document.querySelector('#search-input'); const btn=document.querySelector('#search-btn'); if(!input||!btn) return; btn.addEventListener('click',()=>{ const q=input.value.trim(); const usp=new URLSearchParams(location.search); usp.set('q',q); location.href=`products.html?${usp.toString()}`; }); }
 
-function formatPrice(p, cur='USD') {
-  return new Intl.NumberFormat('ar-MA', { style:'currency', currency: cur }).format(p);
-}
-
-function createProductCard(p) {
-  const div = document.createElement('div');
-  div.className = 'card';
-  div.innerHTML = `
-    <img src="${p.image}" alt="${p.name}">
-    <div class="info">
-      <div class="title">${p.name}</div>
-      <div class="muted">${p.category} • ⭐ ${p.rating} (${p.reviewsCount})</div>
-      <div class="price">${formatPrice(p.price, p.currency)}</div>
-    </div>
-    <div class="actions">
-      <a class="button" href="product.html?id=${p.id}">تفاصيل</a>
-      <a class="button secondary" href="${p.aliUrl}" target="_blank" rel="noopener">على AliExpress</a>
-    </div>
-  `;
-  return div;
-}
-
-async function renderGrid(containerSelector, opts={}) {
-  const el = document.querySelector(containerSelector);
-  if (!el) return;
-  const products = await loadProducts();
-  const q = new URLSearchParams(location.search).get('q');
-  const cat = opts.category || new URLSearchParams(location.search).get('category');
-  let filtered = products;
-  if (cat) filtered = filtered.filter(p => p.category === cat);
-  if (q) filtered = filtered.filter(p => p.name.includes(q));
-  el.innerHTML = '';
-  filtered.forEach(p => el.appendChild(createProductCard(p)));
-  if (filtered.length === 0) {
-    el.innerHTML = '<div class="muted">لا توجد نتائج مطابقة.</div>';
-  }
-}
-
-// صفحة المنتج
-async function renderProductPage() {
-  const el = document.querySelector('#product');
-  if (!el) return;
-  const id = new URLSearchParams(location.search).get('id');
-  const products = await loadProducts();
-  const p = products.find(x => x.id === id);
-  if (!p) { el.innerHTML = '<div class="muted">المنتج غير موجود.</div>'; return; }
-  el.innerHTML = `
-    <div class="breadcrumbs"><a href="index.html">الرئيسية</a> / <a href="products.html?category=${encodeURIComponent(p.category)}">${p.category}</a> / ${p.name}</div>
-    <div class="hero">
-      <img src="${p.image}" alt="${p.name}" style="width:50%; border-radius:10px;">
-      <div style="flex:1">
-        <div class="title">${p.name}</div>
-        <p class="muted">⭐ ${p.rating} (${p.reviewsCount} مراجعة)</p>
-        <p class="price">${formatPrice(p.price, p.currency)}</p>
-        <p>${p.description}</p>
-        <div style="display:flex; gap:8px;">
-          <a class="button" href="${p.aliUrl}" target="_blank" rel="noopener">اشتريه عبر AliExpress</a>
-          <button class="button secondary" onclick="addToWishlist('${p.id}')">إضافة للمفضلة</button>
-        </div>
-      </div>
-    </div>
-  `;
-  // إضافة JSON-LD للمنتج
-  const ld = {
-    '@context': 'https://schema.org/',
-    '@type': 'Product',
-    name: p.name,
-    image: p.image,
-    description: p.description,
-    category: p.category,
-    offers: {
-      '@type': 'Offer',
-      price: p.price,
-      priceCurrency: p.currency,
-      availability: 'https://schema.org/InStock'
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: p.rating,
-      reviewCount: p.reviewsCount
-    }
-  };
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(ld);
-  document.head.appendChild(script);
-}
-
-function addToWishlist(id) {
-  const key = 'wishlist';
-  const arr = JSON.parse(localStorage.getItem(key) || '[]');
-  if (!arr.includes(id)) arr.push(id);
-  localStorage.setItem(key, JSON.stringify(arr));
-  alert('تمت الإضافة إلى المفضلة');
-}
-
-// بحث بسيط
-function initSearch() {
-  const input = document.querySelector('#search-input');
-  const btn = document.querySelector('#search-btn');
-  if (!input || !btn) return;
-  btn.addEventListener('click', () => {
-    const q = input.value.trim();
-    const base = location.pathname.endsWith('products.html') ? 'products.html' : 'products.html';
-    location.href = `${base}?q=${encodeURIComponent(q)}`;
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderGrid('#grid');
-  renderProductPage();
-  initSearch();
-});
+document.addEventListener('DOMContentLoaded',()=>{ renderGrid('#grid'); renderProductPage(); initSearch(); });
